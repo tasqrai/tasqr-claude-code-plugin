@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "tasqr": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["tasqr-mcp"]
+    }
+  }
+}

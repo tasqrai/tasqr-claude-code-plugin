@@ -1,0 +1,15 @@
+{
+  "name": "tasqr",
+  "description": "Official Tasqr plugin for Claude Code: task state management for AI agents at tasqr.ai.",
+  "owner": {
+    "name": "tasqrai",
+    "url": "https://tasqr.ai"
+  },
+  "plugins": [
+    {
+      "name": "tasqr",
+      "source": "./",
+      "description": "Task state management for AI agents. Connects Claude Code to the Tasqr MCP server and teaches it to track work, coordinate multi-agent pipelines, and work task queues."
+    }
+  ]
+}
