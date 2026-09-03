@@ -42,15 +42,15 @@ update_tasks(updates=[{"task_id": t["task_id"], "status": "completed",
                         "note": "what was accomplished", "output": {...}}])
 ```
 
-**An assignee is required to leave a holding state.** `pending` and `blocked` are holding states; moving to *any* other status (`in_progress`, `paused`, `completed`, `failed`, `cancelled`) needs one. Pass `assignee` at create time or in the same `update_tasks` item that moves the task — `claim_next_task` auto-assigns for you.
+**An assignee is required to leave a holding state.** `pending` and `blocked` are holding states; moving to *any* other status (`in_progress`, `paused`, `completed`, `failed`, `canceled`) needs one. Pass `assignee` at create time or in the same `update_tasks` item that moves the task — `claim_next_task` auto-assigns for you.
 
 It must be a **real member email**, not a label like `"agent-1"`; anything else is rejected. Yours is `get_profile()["email"]`, everyone else's is in `list_members()`.
 
-**A `note` is required** when closing as `completed`, `failed`, or `cancelled`. The server rejects the update without one.
+**A `note` is required** when closing as `completed`, `failed`, or `canceled`. The server rejects the update without one.
 
 - `completed` — what was accomplished, key decisions made
 - `failed` — what failed, what was tried, what the next agent needs to know
-- `cancelled` — why it was abandoned
+- `canceled` — why it was abandoned
 
 ### Create a whole plan in one call
 
@@ -70,7 +70,7 @@ result = create_tasks(tasks=[
 refs = {r["ref"]: r["task_id"] for r in result["results"] if r.get("ref")}
 ```
 
-Up to 25 tasks per call; each `ref` unique; no cycles (the server topologically sorts and rejects them). When blockers reach terminal states, dependents follow automatically: all blockers `completed` → the dependent returns to `pending`; a blocker `failed` → the dependent auto-fails; a blocker `cancelled` → it auto-cancels. Propagation runs asynchronously — give it a few seconds before reading the dependent back.
+Up to 25 tasks per call; each `ref` unique; no cycles (the server topologically sorts and rejects them). When blockers reach terminal states, dependents follow automatically: all blockers `completed` → the dependent returns to `pending`; a blocker `failed` → the dependent auto-fails; a blocker `canceled` → it auto-cancels. Propagation runs asynchronously — give it a few seconds before reading the dependent back.
 
 **Check quota before a large batch.** A batch of N tasks counts N against quota and is rejected upfront if it would breach the limit — the whole batch fails, not just the overflow. `get_quota()` returns `{"tier", "limit", "used", "remaining", "resets_at", "requests": {...}}` (`requests` is the org-pooled monthly API-call allowance, separate from the task quota; a `null` limit means unmetered). If `remaining` is 0, stop and tell the user their quota is exhausted rather than retrying.
 
@@ -91,7 +91,7 @@ You cannot invent tag strings — `create_tasks`/`update_tasks` reject any tag n
 list_tags()
 # {"result": [
 #   {"name": "bug", "strict": False, "default": False,
-#    "description": "Something is broken — a defect in behaviour that already exists.",
+#    "description": "Something is broken — a defect in behavior that already exists.",
 #    "created_by": ..., "created_at": ...},
 #   {"name": "network-team", "strict": True, "default": False,
 #    "description": "Work owned by the Network Team — strict, only they can claim it."}, ...]}
@@ -219,13 +219,13 @@ claim_next_task()                   # uses effective tags
 
 | Status | Meaning | Valid next states |
 |--------|---------|-------------------|
-| `pending` | Waiting to start | `in_progress`, `cancelled` |
-| `in_progress` | Active | `blocked`, `paused`, `completed`, `failed`, `cancelled` |
-| `blocked` | Waiting on a dependency | `in_progress`, `completed`, `failed`, `cancelled` |
-| `paused` | Waiting on the user | `in_progress`, `completed`, `failed`, `cancelled` |
-| `completed` / `failed` / `cancelled` | Terminal | — none |
+| `pending` | Waiting to start | `in_progress`, `canceled` |
+| `in_progress` | Active | `blocked`, `paused`, `completed`, `failed`, `canceled` |
+| `blocked` | Waiting on a dependency | `in_progress`, `completed`, `failed`, `canceled` |
+| `paused` | Waiting on the user | `in_progress`, `completed`, `failed`, `canceled` |
+| `completed` / `failed` / `canceled` | Terminal | — none |
 
-There are **no self-loops** — re-sending the current status is an error. To update fields on an `in_progress` task, omit `status`. And every exit from `pending`/`blocked` in this table — `cancelled` included — still needs an assignee on the task or in the same update item.
+There are **no self-loops** — re-sending the current status is an error. To update fields on an `in_progress` task, omit `status`. And every exit from `pending`/`blocked` in this table — `canceled` included — still needs an assignee on the task or in the same update item.
 
 Use `paused` when you need user input; use `blocked` when waiting on something outside your control (CI, a deploy, another agent) rather than polling:
 
@@ -300,7 +300,7 @@ Same rule everywhere you address a human: status updates, `paused` questions, cl
 |---------|-----|
 | Moving a task out of `pending` with no assignee | Set `assignee` at create time, or pass it on the update |
 | Passing `status="in_progress"` to update fields on an in-progress task | Omit `status` entirely |
-| Closing without `note` | `note` is required for `completed`/`failed`/`cancelled` |
+| Closing without `note` | `note` is required for `completed`/`failed`/`canceled` |
 | Inventing tag names | `list_tags()` first — vocabulary is enforced |
 | Picking a tag by name alone | Read its `description` — especially for `strict` tags, where a wrong pick strands the task |
 | Creating a new tag when a close one exists | Reuse `networks` for `networking`; tag ceilings are tight |
