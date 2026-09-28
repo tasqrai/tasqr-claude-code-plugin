@@ -67,7 +67,7 @@ Three roles: `owner`, `admin`, `user`.
 
 A team bundles tags. Every member of a team inherits its tags on top of their own `profile_tags` — that union is what claim filtering and strict-tag checks read. Teams are how you say "everyone on backend can claim backend work" once instead of per person.
 
-Available on dev, pro, and enterprise (free gets 403). Limits: dev 10, pro 50, enterprise 200 teams.
+Available on dev, pro, and enterprise; on free, team tools return a tool error saying teams need a paid plan. Limits: dev 10, pro 50, enterprise 200 teams.
 
 ```python
 list_teams()

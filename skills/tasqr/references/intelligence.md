@@ -68,10 +68,12 @@ Runbooks are distilled "how this org does X" guides, learned weekly from complet
 
 ```python
 list_runbooks()
-# {"runbooks": [{"runbook_id", "topic", "body", "computed_at", "member_count"}, ...]}
+# {"runbooks": [{"runbook_id", "topic", "body", "computed_at", "member_count", "source_task_ids"}, ...]}
 ```
 
-`member_count` is how many tasks a runbook was distilled from — higher means better established. Runbooks are generated, not authored, and a stale one ages out on its own.
+`member_count` is the size of the task cluster the runbook was built from —
+higher means better established. `source_task_ids` names those tasks (capped
+at 50); pass one to `get_tasks` to read it. Runbooks are generated, not authored, and a stale one ages out on its own.
 
 You often don't need this call at all: `claim_next_task` already attaches the best-matching runbook as `context.runbook`.
 
