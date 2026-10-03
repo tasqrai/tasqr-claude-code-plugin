@@ -1,6 +1,6 @@
 ---
 name: tasqr
-description: Use when tasqr MCP tools (mcp__tasqr__*) are available and the work should outlive this session — substantial engineering efforts (migrations, feature builds, audits, large refactors), anything a human or teammate will review or pick up later, task queues agents claim from, subagent fan-out, and personal or professional task tracking the user asks you to record (including non-code work). Also use at session start to resume unfinished tasks, and when a tasqr tool errors or behaves unexpectedly. Invoke it while planning, not after — do not wait until a tasqr tool call is imminent. Skip one-off lookups, single-answer questions, and short in-session work that an ephemeral todo list already covers.
+description: Use when the Tasqr MCP tools (create_tasks, list_tasks, claim_next_task and the rest) are available and the work should outlive this session — substantial engineering efforts (migrations, feature builds, audits, large refactors), anything a human or teammate will review or pick up later, task queues agents claim from, subagent fan-out, and personal or professional task tracking the user asks you to record (including non-code work). Also use at session start to resume unfinished tasks, and when a tasqr tool errors or behaves unexpectedly. Invoke it while planning, not after — do not wait until a tasqr tool call is imminent. Skip one-off lookups, single-answer questions, and short in-session work that an ephemeral todo list already covers.
 ---
 
 # Using Tasqr

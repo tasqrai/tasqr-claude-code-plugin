@@ -4,6 +4,26 @@ All notable changes to the Tasqr plugin for Claude Code are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and versions follow [Semantic Versioning](https://semver.org/).
 
+## [0.1.2] - 2026-10-03
+
+### Changed
+
+- The MCP server runs `tasqr-mcp==0.1.1`, pinned to an exact version. A new
+  proxy release reaches the plugin through a plugin release.
+
+### Fixed
+
+- The README's setup step. The proxy reads its API key from
+  `~/.config/tasqr/credentials`, written by a one-time `uvx tasqr-mcp` sign-in
+  in a terminal. It never read `TASQR_API_KEY`.
+- The README and the skill named the tools `mcp__tasqr__*`. Tools from the
+  plugin's server are `mcp__plugin_tasqr_tasqr__*`.
+
+### Added
+
+- The README lists everything the proxy reads, writes and contacts.
+- `repository` in `plugin.json`.
+
 ## [0.1.1] - 2026-09-28
 
 ### Changed
