@@ -3,7 +3,7 @@
     "tasqr": {
       "type": "stdio",
       "command": "uvx",
-      "args": ["tasqr-mcp==0.1.1"]
+      "args": ["tasqr-mcp==0.1.2"]
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "tasqr",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Task state management for AI agents. Connects Claude Code to the Tasqr MCP server and teaches it to track work, coordinate multi-agent pipelines, and work task queues.",
   "author": {
     "name": "tasqrai",

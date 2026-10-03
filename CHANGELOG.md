@@ -4,6 +4,14 @@ All notable changes to the Tasqr plugin for Claude Code are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and versions follow [Semantic Versioning](https://semver.org/).
 
+## [0.1.3] - 2026-10-03
+
+### Changed
+
+- The MCP server runs `tasqr-mcp==0.1.2`. The proxy now passes the Tasqr
+  server's instructions through to Claude Code, which tell Claude when to reach
+  for Tasqr and which tools to start with. Earlier proxies dropped them.
+
 ## [0.1.2] - 2026-10-03
 
 ### Changed

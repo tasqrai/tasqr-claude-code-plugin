@@ -24,7 +24,7 @@ Task tracking built for AI agents. This plugin connects Claude Code to [Tasqr](h
 2. Sign in once, in a terminal:
 
    ```sh
-   uvx tasqr-mcp==0.1.1
+   uvx tasqr-mcp==0.1.2
    ```
 
    Your browser opens GitHub's device authorization page, and the proxy copies the code to your clipboard. After you approve, choose your workspace. The proxy saves your Tasqr API key to `~/.config/tasqr/credentials` (`%APPDATA%\tasqr\credentials` on Windows), readable only by you, and starts serving. Press Ctrl+C to stop it.
